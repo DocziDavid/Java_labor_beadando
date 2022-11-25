@@ -1,21 +1,21 @@
 package com.example.java_labor_beadando;
 
+import com.example.java_labor_beadando.kapcsolat.Message;
 import com.example.java_labor_beadando.kapcsolat.MessageRepository;
 import com.example.java_labor_beadando.securityrole.Role;
 import com.example.java_labor_beadando.securityrole.User;
 import com.example.java_labor_beadando.securityrole.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +23,11 @@ import java.util.List;
 @Controller
 public class Controllers  {
     @Autowired
-    private AdatokRepository adatokRepository;
-
+    private dataRepository dataRepository;
 
     @GetMapping("/teszt")
     public String Kezdooldal(Model model, String uzenet) {
-        model.addAttribute("meccsek",adatokRepository.findAll());
+        model.addAttribute("meccsek", dataRepository.findAll());
         model.addAttribute("uzenet",model.addAttribute("uzenet"));
         return "Meccseink";
     }
@@ -47,10 +46,7 @@ public class Controllers  {
         return "Regisztracio";
     }
 
-    @GetMapping("/Kapcsolatok")
-    public String kapcsolat(){
-        return "Kapcsolatok";
-    }
+
     @Autowired
     private UserRepository userRepo;
     @PostMapping("/regisztral_feldolgoz")
@@ -70,11 +66,29 @@ public class Controllers  {
         user.setRoles(rolelist);
         userRepo.save(user);
         model.addAttribute("id", user.getId());
-        return "/";
+        return "/Home";
     }
 
     @Autowired
     private MessageRepository messageRepo;
+    //
+    @GetMapping("/Kapcsolatok")
+    public String ujUzenet(Model model){
+        model.addAttribute("message","");
+        return "Kapcsolatok";
+    }
+
+    @PostMapping(value = "/ment")
+    public String uzenetMentese(@ModelAttribute String message, HttpServletRequest request, RedirectAttributes redirAttr){
+        Principal userPrincipal= request.getUserPrincipal();
+        Message msg= new Message();
+        msg.setMessage(message);
+        if(userPrincipal!=null){msg.setName(userPrincipal.getName());}
+        else{msg.setName("Látogató");}
+        messageRepo.save(msg);
+        redirAttr.addFlashAttribute("uzenet","Köszönjük az üzenetet!");
+        return "/Home";
+    }
 
 
 

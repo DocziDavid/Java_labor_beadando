@@ -2847,7 +2847,7 @@ INSERT INTO user_role VALUES
 
 CREATE TABLE messages(
 	id int(11) AUTO_INCREMENT PRIMARY KEY,
-    sender varchar(255),
+    name varchar(255),
     message varchar(511)
 );
 

@@ -9,6 +9,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(name = "message")
     private String message;
 
     public Integer getId() {

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Kapcsolatok</title>
-    <link rel="stylesheet" type="text/css" href="Style.css" media="screen,print">
+    <link rel="stylesheet" type="text/css" th:href="@{/Style.css}" media="screen,print">
 </head>
 <body class="body" id="5body">
-<nav id="menusor" class="menu">
-    <ul id="Menu">
-        <li><a href="Home.html">Kezdőlap</a></li>
-        <li><a href="Meccseink.html">Meccseink</a></li>
-        <li><a href="Belepes.html">Belépés</a></li>
-        <li><a href="Regisztracio.html">Regisztráció</a></li>
-        <li><a href="Kapcsolatok.html">Kapcsolatok</a></li>
-
-
-    </ul>
+<h1>Küldjön üzenetet az üzemeltetőinknek!</h1>
+<div sec:authorize="isAuthenticated()">
+    Üzenet küldése: <span sec:authentication="name"></span> néven.</div>
+<br/>
+<form action="#" th:action="@{/ment}"  method="post" >
+    <p><textarea rows="10" cols="80" type="text" th:field="${message}" placeholder="Üzenet" required/></p>
+    <p><input type="submit" value="Elküld" /></p>
+</form>
 </body>
 </html>
