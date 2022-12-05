@@ -1,39 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Meccseink</title>
-    <link rel="stylesheet" type="text/css" href="../static/Style.css" media="screen,print">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/Style.css}" media="screen,print">
 </head>
-<body class="body" id="2body">
+<body class="body" id="2body" >
+
 <nav id="menusor" class="menu">
-  <ul id="Menu">
-    <li><a href="Home.html">Kezdőlap</a></li>
-    <li><a href="Meccseink.html">Meccseink</a></li>
-    <li><a href="Belepes.html">Belépés</a></li>
-    <li><a href="Regisztracio.html">Regisztráció</a></li>
-    <li><a href="Kapcsolatok.html">Kapcsolatok</a></li>
+    <ul id="Menu">
+        <span sec:authorize="isAuthenticated()">
+        <li><a th:href="@{/}">Kezdőlap</a></li>
+        </span>
+        <li><a th:href="@{/Kapcsolatok}">Kapcsolatok</a></li>
+        <span sec:authorize="isAnonymous()">
+           <li> <a th:href="@{/login}">Bejelentkezés</a></li>
+        </span>
+        <span sec:authorize="isAuthenticated()">
+            <li><a th:href="@{/Meccseink}">Meccseink</a></li>
 
-
-  </ul>
+            <li><a th:href="@{/logout}">Kijelentkezés</a></li>
+        </span>
+        <span sec:authorize="hasRole('ROLE_ADMIN')">
+            <li><a th:href="@{/admin/home}">Admin</a></li>
+        </span>
+        <span sec:authorize="isAnonymous()">
+            <li><a th:href="@{/Regisztracio}">Regisztráció</a></li>
+        </span>
+        <li><a th:href="@{/uzenetek}">Üzenetek</a></li>
+    </ul>
 </nav>
-<div>
-    <h3 style="color:#ff5900;" th:text="${uzenet}"></h3>
+<div id="divek">
+    <div id="meccsdiv">
+
     <h1>Meccsek</h1>
-    <a href="/uj">Új meccs hozzáad</a>
-    <br/><br/>
-    <table>
+    <br/>
+    <table id="1tbl" style="background-color: white">
         <thead>
         <tr>
             <th>id</th>
-            <th>datum</th>
-            <th>kezdes</th>
+            <th style="padding-left: 10px">datum</th>
+            <th style="padding-left: 20px">kezdes</th>
             <th>belepo</th>
             <th>tipus</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody1">
         <tr th:each="meccs : ${meccsek}">
             <td th:text="${meccs.id}"></td>
             <td th:text="${meccs.datum}"></td>
@@ -41,12 +55,60 @@
             <td th:text="${meccs.belepo}"></td>
             <td th:text="${meccs.tipus}"></td>
             <td>
-                <a th:href="@{'/edit/'+${meccs.id}}">Edit</a>&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/delete/'+${meccs.id}}">Delete</a>
+            </td>
+            <td><a th:href="@{'/edit/'+${meccs.id}}">Módosítás</a></td>
+            <td><a th:href="@{'/delete/'+${meccs.id}}">Törlés</a></td>
+        </tr>
+        </tbody>
+    </table>
+        <a id="hozzaad" th:href="@{/add}">Hozzáadás</a>
+    </div>
+
+    <div id="nezodiv">
+    <h1>Nezok</h1>
+    <br/>
+    <table style="background-color: white">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>nev</th>
+            <th style="padding-left: 50px">ferfi</th>
+            <th style="padding-right: 30px">berlet</th>
+        </tr>
+        </thead>
+        <tbody id="tbody2">
+        <tr th:each="item : ${nezok}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.nev}"></td>
+            <td th:text="${item.ferfi}"></td>
+            <td th:text="${item.berletes}"></td>
             </td>
         </tr>
         </tbody>
     </table>
+    </div>
+
+    <div id="belepesdiv">
+    <h1>Belepes</h1>
+        <br/>
+    <table style="background-color: white">
+        <thead>
+        <tr>
+            <th>n.id</th>
+            <th>m.id</th>
+            <th>idő</th>
+        </tr>
+        </thead>
+        <tbody id="tbody3">
+        <tr th:each="belep : ${belepesek}">
+            <td th:text="${belep.nezoid}"></td>
+            <td style="padding-left: 30px" th:text="${belep.meccsid}"></td>
+            <td th:text="${belep.idopont}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+    </div>
 </div>
 </body>
 </html>

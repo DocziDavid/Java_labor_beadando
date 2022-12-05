@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>Kapcsolatok</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/Style.css}" media="screen,print">
+</head>
+<body class="body" id="5body">
+  <ul id="Menu">
+
+  </ul>
+<h1>Küldjön üzenetet az üzemeltetőinknek!</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Név</th>
+    <th>Üzenet</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="uzenet: ${messages}">
+    <td th:text="${uzenet.name}"></td>
+    <td th:text="${uzenet.date}"></td>
+    <td th:text="${uzenet.message}"></td>
+  </tr>
+  </tbody>
+</table>
+  <form>
+    <p><input type="button" value="Vissza" onclick="history.back()" /></p>
+  </form>
+</body>
+</html>

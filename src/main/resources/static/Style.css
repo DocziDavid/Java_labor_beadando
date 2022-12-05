@@ -6,6 +6,7 @@ html {
     background-size: cover;
 }
 
+
 #menusor {
     position: -webkit-sticky;
 }
@@ -64,5 +65,77 @@ html {
     margin: auto;
     display: block;
 }
+
+#2body {
+    color: deepskyblue;
+}
+
+#tbody1 {
+    color: black;
+    font-weight: bolder;
+}
+
+
+
+
+th {
+    padding: 10px;
+}
+
+td {
+    padding: 6px;
+}
+
+
+table tbody { height:300px; overflow-y:scroll; display:block; }
+table thead { display:block; }
+
+#divek {
+    width: fit-content;
+    height:190px;
+    padding-top:20px;
+    padding-left:60px;
+    padding-right:15px;
+}
+
+#meccsdiv {
+    float:left;
+    width:180px;
+    height:200px;
+}
+
+#nezodiv {
+    float:left;
+    width:180px;
+    height:200px;
+    margin-left:480px;
+
+}
+
+#belepesdiv {
+    float:right;
+    width:180px;
+    height:200px;
+    margin-left: 280px;
+
+}
+
+#hozzaad {
+    font-weight: bold;
+    color: white;
+}
+
+/*#meccsdiv {
+    padding-left: 60px;
+
+}
+
+#nezodiv {
+    padding-left: 60px;
+}
+
+#belepesdiv {
+    padding-left: 60px;
+}*/
 
 

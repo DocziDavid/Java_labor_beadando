@@ -6,6 +6,9 @@
     <link rel="stylesheet" th:href="@{/Style.css}">
 </head>
 <body class="body" id="4body">
+    <ul id="Menu">
+        <li><a th:href="@{/}">Kezdőlap</a></li>
+    </ul>
     <h3>Regisztrálja magát, ha még nem felhasználó!</h3>
     <form action="#" th:action="@{/regisztral_feldolgoz}" th:object="${reg}" method="post">
         <fieldset>

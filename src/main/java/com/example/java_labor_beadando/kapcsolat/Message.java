@@ -1,6 +1,9 @@
 package com.example.java_labor_beadando.kapcsolat;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="messages")
@@ -9,8 +12,18 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @NotNull
     @Column(name = "message")
     private String message;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Integer getId() {
         return id;

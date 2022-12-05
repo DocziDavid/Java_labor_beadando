@@ -1,19 +1,23 @@
-package com.example.java_labor_beadando;
+package com.example.java_labor_beadando.modelclasses;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.*;
 
 @Entity
 @Table(name="meccs")
 public class Meccsek {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String datum;
     private String kezdes;
-    private int tipus;
+    private String tipus;
     private int belepo;
 
-    public Meccsek(int id, String datum, String kezdes, int tipus, int belepo) {
+    public Meccsek(int id, String datum, String kezdes, String tipus, int belepo) {
         this.id = id;
         this.datum = datum;
         this.kezdes = kezdes;
@@ -48,11 +52,11 @@ public class Meccsek {
         this.kezdes = kezdes;
     }
 
-    public int getTipus() {
+    public String getTipus() {
         return tipus;
     }
 
-    public void setTipus(int tipus) {
+    public void setTipus(String tipus) {
         this.tipus = tipus;
     }
 

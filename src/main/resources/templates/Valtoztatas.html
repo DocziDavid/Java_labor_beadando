@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Változtatás</title>
+</head>
+<body>
+<form action="#" th:action="@{/edit}" method="post" th:object="${meccsek}">
+  <label for="id">Id</label><br>
+  <input th:field = "*{id}" type="number" min="1" name="id" required><br>
+  <label for="datum">Dátum</label><br>
+  <input th:field = "*{datum}" type="text" name="datum" placeholder="YYYY.MM.DD" required><br>
+  <label for="kezdes">Kezdés</label><br>
+  <input th:field = "*{kezdes}" type="time" name="kezdes" required><br>
+  <label for="tipus">Típus</label><br>
+  <input th:field = "*{tipus}" type="radio" value="bajnoki" name="tipus" required checked>
+  <label for="bajnoki">bajnoki</label><br>
+  <input th:field = "*{tipus}" type="radio" value="kupa" name="tipus" required checked>
+  <label for="kupa">kupa</label><br>
+  <label for="belepo">Belépő</label><br>
+  <input th:field = "*{belepo}" type="number" min="500" name="belepo" required><br>
+  <button type="submit" id="valtgomb">Kész</button>
+</form>
+
+<a th:href="@{/meccseink}">Vissza</a>
+</body>
+</html>
